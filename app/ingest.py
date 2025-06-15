@@ -23,12 +23,14 @@ Note:
 import logging
 from app.logging_config import setup_logging
 from app.services.ingestion.ingestion_pipeline import IngestionPipeline
+from app.db.database import Base, engine
 from app.api.dependencies import get_chunking_service, get_embedding_service, get_storage_service
 
 logger = logging.getLogger(__name__)
 
 if __name__ == "__main__":
     setup_logging()
+    Base.metadata.create_all(bind=engine)
     logger.info("Starting ingestion script...")
 
     try:
